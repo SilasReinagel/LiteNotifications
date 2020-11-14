@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\srcctrl\LiteNotifications\src\api" t="IncludeFlat">
+      <e p="LiteNotifications.sln" t="IncludeFlat" />
+      <e p="LiteNotifications.Tests" t="IncludeRecursive">
+        <e p="ApiTests.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="LiteNotifications.Tests.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="LiteNotifications.Tests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TestConfig.cs" t="Include" />
+      </e>
+      <e p="LiteNotifications.WebApi" t="IncludeRecursive">
+        <e p="_Common" t="Include">
+          <e p="AppDataJsonIo.cs" t="Include" />
+          <e p="DictionaryWithDefault.cs" t="Include" />
+          <e p="EnumerableExtensions.cs" t="Include" />
+          <e p="EnvironmentVariable.cs" t="Include" />
+          <e p="IExternal.cs" t="Include" />
+          <e p="Io.cs" t="Include" />
+          <e p="IPost.cs" t="Include" />
+          <e p="IValue.cs" t="Include" />
+          <e p="Json.cs" t="Include" />
+          <e p="StringExtensions.cs" t="Include" />
+        </e>
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Contracts" t="Include">
+          <e p="AddEmailOutletRequest.cs" t="Include" />
+          <e p="AddOutletRequest.cs" t="Include" />
+          <e p="CreateUserRequest.cs" t="Include" />
+          <e p="RemoveOutletRequest.cs" t="Include" />
+          <e p="SubscriptionRequest.cs" t="Include" />
+        </e>
+        <e p="Controllers" t="Include">
+          <e p="ManageController.cs" t="Include" />
+          <e p="NotificationsController.cs" t="Include" />
+          <e p="StatusController.cs" t="Include" />
+        </e>
+        <e p="Domain" t="Include">
+          <e p="IChannel.cs" t="Include" />
+          <e p="Notification.cs" t="Include" />
+          <e p="RoutedNotification.cs" t="Include" />
+          <e p="Subscription.cs" t="Include" />
+          <e p="UserOutletData.cs" t="Include" />
+        </e>
+        <e p="Email" t="Include">
+          <e p="EmailChannel.cs" t="Include" />
+          <e p="EmailClient.cs" t="Include" />
+          <e p="EmailSender.cs" t="Include" />
+          <e p="IEmailSettings.cs" t="Include" />
+          <e p="SmtpSettings.cs" t="Include" />
+        </e>
+        <e p="EnvironmentVariablesConfig.cs" t="Include" />
+        <e p="Infrastructure" t="Include">
+          <e p="Slack" t="Include">
+            <e p="Slack.rest" t="Include" />
+            <e p="SlackChannelChannel.cs" t="Include" />
+            <e p="SlackClient.cs" t="Include" />
+            <e p="SlackGetChannel.cs" t="Include" />
+            <e p="SlackGetUser.cs" t="Include" />
+            <e p="SlackMessage.cs" t="Include" />
+            <e p="SlackPostMessage.cs" t="Include" />
+            <e p="SlackUserChannel.cs" t="Include" />
+          </e>
+        </e>
+        <e p="LiteNotifications.WebApi.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="LiteNotifications.WebApi.AssemblyInfo.cs" t="Include" />
+              <e p="LiteNotifications.WebApi.MvcApplicationPartsAssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Persistence" t="Include">
+          <e p="JsonStoreIo.cs" t="Include" />
+          <e p="SubscriptionsPersistence.cs" t="Include" />
+          <e p="UserOutletsPersistence.cs" t="Include" />
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+          <e p="PublishProfiles" t="Include">
+            <e p="hackathon2018-notifications-api - Web Deploy.pubxml" t="Include" />
+          </e>
+        </e>
+        <e p="Sms" t="Include">
+          <e p="TwilioSmsChannel.cs" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="UseCases" t="Include">
+          <e p="UglyPublishNotificationFirstDraft.cs" t="Include" />
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+    <e p="C:\Users\sreinag\.nuget\packages\microsoft.net.test.sdk\16.2.0\build\netcoreapp1.0" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="C:\Users\sreinag\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\nunit.engine.api.dll" t="Include" />
+    <e p="C:\Users\sreinag\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\nunit.engine.dll" t="Include" />
+    <e p="C:\Users\sreinag\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.dll" t="Include" />
+    <e p="C:\Users\sreinag\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.pdb" t="Include" />
+    <e p="C:\Users\sreinag\.Rider2019.2\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\sreinag\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\sreinag\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_LiteNotifications.1188670662.00" t="ExcludeRecursive" />
+  </component>
+</project>

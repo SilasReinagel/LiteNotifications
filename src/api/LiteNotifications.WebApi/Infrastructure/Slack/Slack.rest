@@ -1,0 +1,38 @@
+### postMessage
+https://slack.com/api/chat.postMessage
+?token=xoxb-108113951313-25Ns8vrQcD6WG36l6XIOEZNC
+&channel=C8WSYDKRA
+&text=
+
+### channel history
+GET https://slack.com/api/channels.history
+?token=xoxb-108113951313-25Ns8vrQcD6WG36l6XIOEZNC
+&channel=C8WSYDKRA
+
+### channel list
+GET https://slack.com/api/channels.list
+?token=xoxb-108113951313-25Ns8vrQcD6WG36l6XIOEZNC
+	
+### user list
+GET https://slack.com/api/users.list
+?token=xoxb-108113951313-25Ns8vrQcD6WG36l6XIOEZNC
+&include_locale=false
+&limit=500
+&cursor=
+//dXNlcjpVQlU0MFY4MFk=
+//dXNlcjpVQTJUTUhIQjk=
+//dXNlcjpVOTQ3SlFGVDk=
+//dXNlcjpVODk4MFRIMkE=
+//dXNlcjpVN0dSUk5TTVM=
+//dXNlcjpVNjlDWTBBM0U=
+//dXNlcjpVM1VNOFBNM1A=
+//dXNlcjpVMzNHWlAzN0Y=
+//dXNlcjpVMzNDTDRGUzc=
+//dXNlcjpVMEwzSkVUMFY=
+
+### get user by id
+GET https://api.slack.com/methods/users.lookupByEmail
+?token=xoxb-108113951313-25Ns8vrQcD6WG36l6XIOEZNC
+&email=nate.fuller%40carvana.com
+
+## TODO: https://slack.com/api/dialog.open
