@@ -1,4 +1,6 @@
+using LiteMediator;
 using LiteNotifications.WebApi._Common;
+using LiteNotifications.WebApi.Controllers;
 using LiteNotifications.WebApi.Domain;
 using LiteNotifications.WebApi.Email;
 using LiteNotifications.WebApi.Infrastructure.Slack;
@@ -49,6 +51,15 @@ namespace LiteNotifications.WebApi
             services.AddScoped(s => new UglyPublishNotificationFirstDraft("", s.GetRequiredService<SubscriptionsPersistence>(), // TODO: Configure public URL
                 s.GetRequiredService<UserOutletsPersistence>(),
                 s.GetRequiredService<Channels>()));
+           
+            
+            services.AddSingleton(_ =>
+            {
+                var handler = new AsyncMediator();
+                handler.Register<LoginUserRequest, LoginResponse>(s => new LoginResponse {Token = "SampleToken"});
+                handler.Register<RegisterUserRequest, LoginResponse>(s => new LoginResponse {Token = "SampleToken"});
+                return handler;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

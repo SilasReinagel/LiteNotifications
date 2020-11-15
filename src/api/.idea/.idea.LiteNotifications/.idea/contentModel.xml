@@ -14,6 +14,7 @@
             </e>
           </e>
         </e>
+        <e p="SqlConnectionTests.cs" t="Include" />
         <e p="TestConfig.cs" t="Include" />
       </e>
       <e p="LiteNotifications.WebApi" t="IncludeRecursive">
@@ -27,10 +28,14 @@
           <e p="IPost.cs" t="Include" />
           <e p="IValue.cs" t="Include" />
           <e p="Json.cs" t="Include" />
+          <e p="MediatorExtensions.cs" t="Include" />
           <e p="StringExtensions.cs" t="Include" />
         </e>
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
+        <e p="Auth" t="Include">
+          <e p="AuthController.cs" t="Include" />
+        </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="Contracts" t="Include">
           <e p="AddEmailOutletRequest.cs" t="Include" />
@@ -69,6 +74,9 @@
             <e p="SlackMessage.cs" t="Include" />
             <e p="SlackPostMessage.cs" t="Include" />
             <e p="SlackUserChannel.cs" t="Include" />
+          </e>
+          <e p="Sql" t="Include">
+            <e p="DapperSqlDb.cs" t="Include" />
           </e>
         </e>
         <e p="LiteNotifications.WebApi.csproj" t="IncludeRecursive" />
