@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LiteNotifications.WebApi._Common
+namespace LiteNotifications.WebApi
 {
     public sealed class EnvironmentVariable : IValue<string>
     {

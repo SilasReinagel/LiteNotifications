@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LiteNotifications.WebApi._Common;
 using LiteNotifications.WebApi.Domain;
 
 namespace LiteNotifications.WebApi.UseCases

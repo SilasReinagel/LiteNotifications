@@ -1,10 +1,12 @@
+using Carvana;
 using LiteMediator;
-using LiteNotifications.WebApi._Common;
-using LiteNotifications.WebApi.Controllers;
+using LiteNotifications.WebApi.Auth;
 using LiteNotifications.WebApi.Domain;
 using LiteNotifications.WebApi.Email;
 using LiteNotifications.WebApi.Infrastructure.Slack;
+using LiteNotifications.WebApi.Infrastructure.Sql;
 using LiteNotifications.WebApi.Persistence;
+using LiteNotifications.WebApi.Tenancy;
 using LiteNotifications.WebApi.UseCases;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,40 +26,49 @@ namespace LiteNotifications.WebApi
 
         public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection svc)
         {
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
+            svc.AddControllers();
+            svc.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LiteNotifications" });
             });
-            services.AddSingleton(s => new SlackClient(new EnvironmentVariable("SlackToken").Get()));
-            services.AddSingleton<SlackPostMessage>();
-            services.AddSingleton<SlackGetChannel>();
-            services.AddSingleton<SlackGetUser>();
-            services.AddSingleton<SlackChannelChannel>();
-            services.AddSingleton<SlackUserChannel>();
+            svc.AddSingleton(s => new SlackClient(new EnvironmentVariable("SlackToken").Get()));
+            svc.AddSingleton<SlackPostMessage>();
+            svc.AddSingleton<SlackGetChannel>();
+            svc.AddSingleton<SlackGetUser>();
+            svc.AddSingleton<SlackChannelChannel>();
+            svc.AddSingleton<SlackUserChannel>();
 
-            services.AddScoped<Io>(s => new JsonStoreIo());
-            services.AddScoped(s => new UserOutletsPersistence(s.GetRequiredService<Io>(), "88de76ffc0fabba642d0836b4a986c261952a0e1aefbaa8863e5dd89c595275e"));
-            services.AddScoped(s => new SubscriptionsPersistence(s.GetRequiredService<Io>(), "567db3f221ac7e95567e47413d4cec051e4fa031db09ca52d86f369ec4dd09f8"));
-            services.AddSingleton(s => new Channels
+            svc.AddScoped<Io>(s => new JsonStoreIo());
+            svc.AddScoped(s => new UserOutletsPersistence(s.GetRequiredService<Io>(), "88de76ffc0fabba642d0836b4a986c261952a0e1aefbaa8863e5dd89c595275e"));
+            svc.AddScoped(s => new SubscriptionsPersistence(s.GetRequiredService<Io>(), "567db3f221ac7e95567e47413d4cec051e4fa031db09ca52d86f369ec4dd09f8"));
+            svc.AddSingleton(s => new Channels
             {
                 //{"sms", new TwilioSmsChannel(new SmsClient())},
                 {"email", new EmailChannel(new EmailClient(new EnvironmentVariablesConfig()))},
                 {"slackchannel", s.GetRequiredService<SlackChannelChannel>()},
                 {"slackUser", s.GetRequiredService<SlackUserChannel>()},
             });
-            services.AddScoped(s => new UglyPublishNotificationFirstDraft("", s.GetRequiredService<SubscriptionsPersistence>(), // TODO: Configure public URL
+            svc.AddScoped(s => new UglyPublishNotificationFirstDraft("", s.GetRequiredService<SubscriptionsPersistence>(), // TODO: Configure public URL
                 s.GetRequiredService<UserOutletsPersistence>(),
                 s.GetRequiredService<Channels>()));
-           
+
+            svc.AddScoped(_ => new DapperSqlDb(new EnvironmentVariable("NotifyAppSqlConnection")));
+            svc.AddScoped<AuthSql>(s => new AuthSql("S", s.GetRequiredService<DapperSqlDb>()));
+            svc.AddScoped<TenancySql>();
+            svc.AddScoped<CreateNewUserAccount>();
+            svc.AddScoped<IExternal<RegisterUserRequest, int>>(s => s.GetRequiredService<AuthSql>());
+            svc.AddScoped<IExternal<LoginUserRequest, LoginResponse>>(s => s.GetRequiredService<AuthSql>());
+            svc.AddScoped<IExternal<RegisterUserRequest, Unit>, CreateNewUserAccount>();
+            svc.AddScoped<IExternal<CreateGroupRequest, int>, TenancySql>();
+            svc.AddScoped<IExternal<AddUserToGroupRequest, Unit>, TenancySql>();
             
-            services.AddSingleton(_ =>
+            svc.AddScoped(s =>
             {
                 var handler = new AsyncMediator();
-                handler.Register<LoginUserRequest, LoginResponse>(s => new LoginResponse {Token = "SampleToken"});
-                handler.Register<RegisterUserRequest, LoginResponse>(s => new LoginResponse {Token = "SampleToken"});
+                handler.Register<LoginUserRequest, Result<LoginResponse>>(r => s.GetRequiredService<IExternal<LoginUserRequest, LoginResponse>>().Get(r));
+                handler.Register<RegisterUserRequest, Result<Unit>>(r => s.GetRequiredService<IExternal<RegisterUserRequest, Unit>>().Get(r));
                 return handler;
             });
         }

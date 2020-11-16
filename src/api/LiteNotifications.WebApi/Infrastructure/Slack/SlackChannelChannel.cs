@@ -3,7 +3,6 @@ using LiteNotifications.WebApi.Domain;
 
 namespace LiteNotifications.WebApi.Infrastructure.Slack
 {
-
     public class SlackChannelChannel : IChannel
     {
         public string Type => "SlackChannel";
@@ -18,10 +17,10 @@ namespace LiteNotifications.WebApi.Infrastructure.Slack
         {
             var channelId = await _channels.Get(notification.Target);
 
-            if (channelId.HasValue)
+            if (channelId.Succeeded() && channelId.Content.HasValue)
                 await _post.Post(new SlackMessage
                 {
-                    Channel = channelId.Value.Id,
+                    Channel = channelId.Content.Value.Id,
                     Text = notification.Text,
                 });
         }

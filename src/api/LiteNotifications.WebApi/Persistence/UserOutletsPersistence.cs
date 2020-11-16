@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LiteNotifications.WebApi._Common;
 using LiteNotifications.WebApi.Contracts;
 using LiteNotifications.WebApi.Domain;
 

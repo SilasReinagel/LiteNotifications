@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text.Json;
 
-namespace LiteNotifications.WebApi._Common
+namespace LiteNotifications.WebApi
 {
     public sealed class AppDataJsonIo : Io
     {

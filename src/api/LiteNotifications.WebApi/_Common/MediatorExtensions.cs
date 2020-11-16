@@ -3,7 +3,7 @@ using Carvana;
 using LiteMediator;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LiteNotifications.WebApi._Common
+namespace LiteNotifications.WebApi
 {
     public static class MediatorExtensions
     {

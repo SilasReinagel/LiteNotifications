@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using LiteNotifications.WebApi._Common;
+using Carvana;
 
 namespace LiteNotifications.WebApi.Infrastructure.Slack
 {
@@ -25,7 +25,7 @@ namespace LiteNotifications.WebApi.Infrastructure.Slack
             _client = client;
         }
 
-        public async Task<Maybe<SlackUser>> Get(string name)
+        public async Task<Result<Maybe<SlackUser>>> Get(string name)
         {
             if (_usersByName == null) await LoadUsers();
             if (_usersByName == null) return Maybe<SlackUser>.Missing;

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LiteNotifications.WebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public sealed class StatusController : Controller
     {
         [HttpGet]

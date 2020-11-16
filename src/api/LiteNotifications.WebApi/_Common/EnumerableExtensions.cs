@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LiteNotifications.WebApi._Common
+namespace LiteNotifications.WebApi
 {
     public static class EnumerableExtensions
     {

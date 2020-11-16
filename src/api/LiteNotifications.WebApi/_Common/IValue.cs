@@ -1,4 +1,4 @@
-﻿namespace LiteNotifications.WebApi._Common
+﻿namespace LiteNotifications.WebApi
 {
     public interface IValue<T>
     {

@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Net.Http;
 using System.Text;
-using LiteNotifications.WebApi._Common;
 
 namespace LiteNotifications.WebApi.Persistence
 {

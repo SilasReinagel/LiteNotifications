@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LiteNotifications.WebApi._Common
+namespace LiteNotifications.WebApi
 {
     public class DictionaryWithDefault<TKey, TValue> : Dictionary<TKey, TValue>
     {

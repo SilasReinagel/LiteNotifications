@@ -1,5 +1,4 @@
-﻿using LiteNotifications.WebApi._Common;
-using LiteNotifications.WebApi.Contracts;
+﻿using LiteNotifications.WebApi.Contracts;
 using LiteNotifications.WebApi.Domain;
 using LiteNotifications.WebApi.Persistence;
 using Microsoft.AspNetCore.Mvc;

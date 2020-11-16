@@ -17,10 +17,10 @@ namespace LiteNotifications.WebApi.Infrastructure.Slack
         public async Task Send(RoutedNotification notification)
         {
             var userId = await _users.Get(notification.Target);
-            if (userId.HasValue)
+            if (userId.Succeeded() && userId.Content.HasValue)
                 await _post.Post(new SlackMessage
                 {
-                    Channel = userId.Value.Id,
+                    Channel = userId.Content.Value.Id,
                     Title = notification.Title,
                     Text = notification.Text,
                 });

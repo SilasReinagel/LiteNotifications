@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 using LiteMediator;
-using LiteNotifications.WebApi._Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LiteNotifications.WebApi.Controllers
+namespace LiteNotifications.WebApi.Auth
 {
     public sealed class RegisterUserRequest
     {

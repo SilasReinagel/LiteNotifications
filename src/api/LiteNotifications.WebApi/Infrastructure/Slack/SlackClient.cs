@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using LiteNotifications.WebApi._Common;
 
 namespace LiteNotifications.WebApi.Infrastructure.Slack
 {

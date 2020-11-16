@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using LiteNotifications.WebApi._Common;
 
 namespace LiteNotifications.WebApi.Domain
 {

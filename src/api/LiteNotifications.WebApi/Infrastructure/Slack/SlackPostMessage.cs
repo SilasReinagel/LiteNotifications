@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using LiteNotifications.WebApi._Common;
 
 namespace LiteNotifications.WebApi.Infrastructure.Slack
 {

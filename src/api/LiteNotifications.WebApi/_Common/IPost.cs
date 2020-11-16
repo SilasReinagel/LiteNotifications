@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace LiteNotifications.WebApi._Common
+namespace LiteNotifications.WebApi
 {
     public interface IPost<T>
     {

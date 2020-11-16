@@ -1,5 +1,4 @@
-﻿using LiteNotifications.WebApi._Common;
-using LiteNotifications.WebApi.Email;
+﻿using LiteNotifications.WebApi.Email;
 
 namespace LiteNotifications.WebApi
 {
