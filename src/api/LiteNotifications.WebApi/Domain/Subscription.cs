@@ -6,7 +6,7 @@ namespace LiteNotifications.WebApi.Domain
     public class Subscription
     {
         public string Topic { get; set; }
-        public string UserId { get; set; }
+        public string GroupId { get; set; }
         public string OutletGroup { get; set; }
         
         public override bool Equals(object obj)
@@ -14,12 +14,12 @@ namespace LiteNotifications.WebApi.Domain
             if (!(obj is Subscription sub)) return false;
             return Topic.Equals(sub.Topic, StringComparison.InvariantCultureIgnoreCase)
                    && OutletGroup.Equals(sub.OutletGroup, StringComparison.InvariantCultureIgnoreCase)
-                   && UserId.Equals(sub.UserId, StringComparison.InvariantCultureIgnoreCase);
+                   && GroupId.Equals(sub.GroupId, StringComparison.InvariantCultureIgnoreCase);
         }
         
         public override int GetHashCode()
         {
-            return (Topic.ToLowerInvariant() + UserId.ToLowerInvariant() + OutletGroup.ToLowerInvariant()).GetHashCode();
+            return (Topic.ToLowerInvariant() + GroupId.ToLowerInvariant() + OutletGroup.ToLowerInvariant()).GetHashCode();
         }
     }
     

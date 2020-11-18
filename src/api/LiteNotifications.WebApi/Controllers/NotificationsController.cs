@@ -28,19 +28,18 @@ namespace LiteNotifications.WebApi.Controllers
         [HttpGet, Route("subscriptions")]
         public IActionResult GetSubscriptions([FromServices]SubscriptionsPersistence subs, string userId)
         {
-            return Ok(subs.Get().Where(x => x.UserId.Equals(userId, StringComparison.InvariantCultureIgnoreCase)).ToDictionary(x => x.Topic, x => x.OutletGroup, StringComparer.InvariantCultureIgnoreCase));
+            return Ok(subs.Get().Where(x => x.GroupId.Equals(userId, StringComparison.InvariantCultureIgnoreCase)).ToDictionary(x => x.Topic, x => x.OutletGroup, StringComparer.InvariantCultureIgnoreCase));
         }
 
         [HttpPost, Route("unsubscribe")]
-        public IActionResult UnsubscribeFromNotification([FromServices] SubscriptionsPersistence subscriptions,
-            [FromBody] SubscriptionRequest req)
+        public IActionResult UnsubscribeFromNotification([FromServices]SubscriptionsPersistence subscriptions, [FromBody] SubscriptionRequest req)
         {
             subscriptions.Remove(req);
             return Ok($"Successfully Unsubscribed from Notification Topic {req.Topic}");
         }
 
         [HttpGet, Route("unsubscribeMe")]
-        public IActionResult UnsubscribeMeLink([FromServices]SubscriptionsPersistence subscriptions, [FromQuery] string userId, [FromQuery] string topic, [FromQuery] string outletGroup)
+        public IActionResult UnsubscribeMeLink([FromServices]SubscriptionsPersistence subscriptions, [FromQuery]string userId, [FromQuery]string topic, [FromQuery]string outletGroup)
         {
             subscriptions.Remove(userId, topic, outletGroup);
             return Ok();

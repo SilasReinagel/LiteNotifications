@@ -1,10 +1,12 @@
 using Carvana;
 using LiteMediator;
 using LiteNotifications.WebApi.Auth;
+using LiteNotifications.WebApi.Contracts;
 using LiteNotifications.WebApi.Domain;
 using LiteNotifications.WebApi.Email;
 using LiteNotifications.WebApi.Infrastructure.Slack;
 using LiteNotifications.WebApi.Infrastructure.Sql;
+using LiteNotifications.WebApi.Outlets;
 using LiteNotifications.WebApi.Persistence;
 using LiteNotifications.WebApi.Tenancy;
 using LiteNotifications.WebApi.UseCases;
@@ -40,35 +42,39 @@ namespace LiteNotifications.WebApi
             svc.AddSingleton<SlackChannelChannel>();
             svc.AddSingleton<SlackUserChannel>();
 
-            svc.AddScoped<Io>(s => new JsonStoreIo());
-            svc.AddScoped(s => new UserOutletsPersistence(s.GetRequiredService<Io>(), "88de76ffc0fabba642d0836b4a986c261952a0e1aefbaa8863e5dd89c595275e"));
-            svc.AddScoped(s => new SubscriptionsPersistence(s.GetRequiredService<Io>(), "567db3f221ac7e95567e47413d4cec051e4fa031db09ca52d86f369ec4dd09f8"));
+            svc.AddScoped<SimpleIo>(s => new JsonStoreIo());
+            svc.AddScoped(s => new SubscriptionsPersistence(s.GetRequiredService<SimpleIo>(), "567db3f221ac7e95567e47413d4cec051e4fa031db09ca52d86f369ec4dd09f8"));
             svc.AddSingleton(s => new Channels
             {
                 //{"sms", new TwilioSmsChannel(new SmsClient())},
-                {"email", new EmailChannel(new EmailClient(new EnvironmentVariablesConfig()))},
-                {"slackchannel", s.GetRequiredService<SlackChannelChannel>()},
-                {"slackUser", s.GetRequiredService<SlackUserChannel>()},
+                {"Email", new EmailChannel(new EmailClient(new EnvironmentVariablesConfig()))},
+                {"SlackChannel", s.GetRequiredService<SlackChannelChannel>()},
+                {"SlackUser", s.GetRequiredService<SlackUserChannel>()},
             });
-            svc.AddScoped(s => new UglyPublishNotificationFirstDraft("", s.GetRequiredService<SubscriptionsPersistence>(), // TODO: Configure public URL
-                s.GetRequiredService<UserOutletsPersistence>(),
-                s.GetRequiredService<Channels>()));
+//            svc.AddScoped(s => new UglyPublishNotificationFirstDraft("", s.GetRequiredService<SubscriptionsPersistence>(), // TODO: Configure public URL
+//                s.GetRequiredService<UserOutletsPersistence>(),
+//                s.GetRequiredService<Channels>()));
 
             svc.AddScoped(_ => new DapperSqlDb(new EnvironmentVariable("NotifyAppSqlConnection")));
             svc.AddScoped<AuthSql>(s => new AuthSql("S", s.GetRequiredService<DapperSqlDb>()));
             svc.AddScoped<TenancySql>();
             svc.AddScoped<CreateNewUserAccount>();
+            svc.AddScoped<OutletsSql>();
             svc.AddScoped<IExternal<RegisterUserRequest, int>>(s => s.GetRequiredService<AuthSql>());
             svc.AddScoped<IExternal<LoginUserRequest, LoginResponse>>(s => s.GetRequiredService<AuthSql>());
             svc.AddScoped<IExternal<RegisterUserRequest, Unit>, CreateNewUserAccount>();
             svc.AddScoped<IExternal<CreateGroupRequest, int>, TenancySql>();
             svc.AddScoped<IExternal<AddUserToGroupRequest, Unit>, TenancySql>();
+            svc.AddScoped<IExternal<AddOutletRequest, Unit>, OutletsSql>();
+            svc.AddScoped<IExternal<RemoveOutletRequest, Unit>, OutletsSql>();
             
             svc.AddScoped(s =>
             {
                 var handler = new AsyncMediator();
                 handler.Register<LoginUserRequest, Result<LoginResponse>>(r => s.GetRequiredService<IExternal<LoginUserRequest, LoginResponse>>().Get(r));
                 handler.Register<RegisterUserRequest, Result<Unit>>(r => s.GetRequiredService<IExternal<RegisterUserRequest, Unit>>().Get(r));
+                handler.Register<AddOutletRequest, Result<Unit>>(r => s.GetRequiredService<IExternal<AddOutletRequest, Unit>>().Get(r));
+                handler.Register<RemoveOutletRequest, Result<Unit>>(r => s.GetRequiredService<IExternal<RemoveOutletRequest, Unit>>().Get(r));
                 return handler;
             });
         }

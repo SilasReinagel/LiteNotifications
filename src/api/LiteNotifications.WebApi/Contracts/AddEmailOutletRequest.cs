@@ -2,16 +2,15 @@
 {
     public sealed class AddEmailOutletRequest
     {
-        public string UserId { get; set; }
+        public int GroupId { get; set; }
         public string EmailAddress { get; set; }
         public string OutletGroup { get; set; } = "Default";
 
         public AddOutletRequest AsOutletRequest() => new AddOutletRequest
         {
-            UserId = UserId,
+            GroupId = GroupId,
             OutletType = "Email",
             Target = EmailAddress,
-            OutletGroup = OutletGroup
         };
     }
 }

@@ -2,7 +2,7 @@
 
 namespace LiteNotifications.WebApi
 {
-    public interface Io
+    public interface SimpleIo
     {
         void Put<T>(string name, T data);
         T Get<T>(string name);
@@ -12,7 +12,7 @@ namespace LiteNotifications.WebApi
     
     public static class IoExtensions
     {
-        public static T GetInitialized<T>(this Io io, string name, Func<T> createDefault)
+        public static T GetInitialized<T>(this SimpleIo io, string name, Func<T> createDefault)
         {
             if (!io.Contains(name))
                 io.Put(name, createDefault());

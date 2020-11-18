@@ -7,15 +7,13 @@ namespace LiteNotifications.WebApi
 {
     public static class MediatorExtensions
     {
-        public static async Task<IActionResult> Handle<TRequest>(this AsyncMediator requests, TRequest request)
-        {
-            return await requests.GetResponse<TRequest, Result>(request).AsResponse();
-        }
+        public static async Task<IActionResult> Handle<TRequest>(this AsyncMediator requests, TRequest request) 
+            => await requests.GetResponse<TRequest, Result>(request).AsResponse();
+
+        public static async Task<IActionResult> AsResponse(this Task<Result> result) 
+            => AsResponse(await result);
         
-        public static async Task<IActionResult> AsResponse(this Task<Result> result)
-        {
-            var completedResult = await result;
-            return new ObjectResult(completedResult) { StatusCode = (int)completedResult.Status };
-        }
+        public static IActionResult AsResponse(this Result result) 
+            => new ObjectResult(result) { StatusCode = (int)result.Status };
     }
 }

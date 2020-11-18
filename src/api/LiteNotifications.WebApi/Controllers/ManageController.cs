@@ -1,37 +1,27 @@
-﻿using LiteNotifications.WebApi.Contracts;
+﻿using System.Threading.Tasks;
+using Carvana;
+using LiteMediator;
+using LiteNotifications.WebApi.Contracts;
 using LiteNotifications.WebApi.Domain;
-using LiteNotifications.WebApi.Persistence;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LiteNotifications.WebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class ManageController : Controller
+    public sealed class ManageController : Controller
     {
-        [HttpGet, Route("ChannelTypes")]
-        public IActionResult GetAllChannelType([FromServices] Channels channels)
-        {
-            return Ok(channels.Keys);
-        }
+        private readonly AsyncMediator _handler;
+
+        public ManageController(AsyncMediator handler) => _handler = handler;
+
+        [HttpGet, Route("channelTypes")] public IActionResult GetAllChannelType([FromServices]Channels channels) => Result.Success(channels.Keys).AsResponse();
+        [HttpPost, Route("outlet")] public Task<IActionResult> AddOutlet([FromBody]AddOutletRequest req) => _handler.Handle(req);
+        [HttpDelete, Route("outlet")] public Task<IActionResult> RemoveOutlets([FromBody]RemoveOutletRequest req) => _handler.Handle(req);
         
-        [HttpPost, Route("AddOutlet")]
-        public IActionResult AddOutlet([FromServices]UserOutletsPersistence outlets, [FromBody]AddOutletRequest req)
-        {
-            outlets.Add(req);
-            return Ok();
-        }
-
-        [HttpDelete, Route("RemoveOutlet")]
-        public IActionResult RemoveOutlets([FromServices]UserOutletsPersistence outlets, [FromBody]RemoveOutletRequest req)
-        {
-            outlets.Remove(req);
-            return Ok();
-        }
-
-        [HttpGet, Route("Outlets")]
-        public IActionResult GetOutletsForUser([FromServices]UserOutletsPersistence outlets, string userId)
-        {
-            return Ok(outlets.Get()[userId.ToWebSafeBase64()]);
-        }
+        // TODO: Implement
+//        [HttpGet, Route("outlets")] public IActionResult GetOutletsForGroup([FromServices]UserOutletsPersistence outlets, [FromQuery]string groupId)
+//        {
+//            return Ok(outlets.Get()[groupId.ToWebSafeBase64()]);
+//        }
     }
 }

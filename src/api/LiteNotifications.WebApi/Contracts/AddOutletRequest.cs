@@ -2,9 +2,10 @@
 {
     public sealed class AddOutletRequest
     {
-        public string UserId { get; set; }
+        public int GroupId { get; set; }
         public string OutletType { get; set; }
         public string Target { get; set; }
-        public string OutletGroup { get; set; }
+
+        public string Hash => $"{GroupId}|{OutletType}|{Target}";
     }
 }

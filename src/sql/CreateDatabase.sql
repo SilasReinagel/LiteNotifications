@@ -1,9 +1,10 @@
 CREATE SCHEMA NotifyApp
 GO
 
-IF EXISTS(SELECT * FROM NotifyApp.Users)
-    DROP TABLE NotifyApp.Users
-GO
+DROP TABLE NotifyApp.UserGroups
+DROP TABLE NotifyApp.Groups
+DROP TABLE NotifyApp.Users
+DROP TABLE NotifyApp.Outlets
 
 CREATE TABLE NotifyApp.Users (
   UserId INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
@@ -28,3 +29,11 @@ CREATE TABLE NotifyApp.UserGroups (
 )
 GO
 
+CREATE TABLE NotifyApp.Outlets (
+  OutletId INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+  GroupId INT NOT NULL,
+  OutletType varchar(128) NOT NULL,
+  Target varchar(256) NOT NULL,
+  Hash varchar(512) NOT NULL
+)
+GO

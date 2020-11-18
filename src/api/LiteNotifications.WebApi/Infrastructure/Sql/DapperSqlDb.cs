@@ -46,6 +46,9 @@ namespace LiteNotifications.WebApi.Infrastructure.Sql
             }
         }
 
+        public Task<Result<Unit>> ExecuteUnit(string sql, object queryParams = null, bool errorIfMissing = false)
+            => Execute(sql, queryParams, errorIfMissing).Then(() => new Unit());
+
         public IDbConnection OpenConnection()
         {
             IDbConnection result = null;

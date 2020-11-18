@@ -2,7 +2,7 @@
 
 namespace LiteNotifications.WebApi.Domain
 {
-    public sealed class UserOutletData
+    public sealed class GroupOutletData
     {
         public string Id { get; set; }
         public string OutletType { get; set; }
@@ -11,7 +11,7 @@ namespace LiteNotifications.WebApi.Domain
 
         public override bool Equals(object obj)
         {
-            var outlet = obj as UserOutletData;
+            var outlet = obj as GroupOutletData;
             if (outlet == null) return false;
             return OutletType == outlet.OutletType
                 && OutletGroup == outlet.OutletGroup
@@ -23,8 +23,8 @@ namespace LiteNotifications.WebApi.Domain
         }
     }
     
-    public sealed class UserOutlets : DictionaryWithDefault<string, List<UserOutletData>> 
+    public sealed class GroupOutlets : DictionaryWithDefault<string, List<GroupOutletData>> 
     {
-        public UserOutlets() : base(new List<UserOutletData>()) { }
+        public GroupOutlets() : base(new List<GroupOutletData>()) { }
     }
 }

@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace LiteNotifications.WebApi
 {
-    public sealed class AppDataJsonIo : Io
+    public sealed class AppDataJsonIo : SimpleIo
     {
         private readonly string _appStorageFolder;
 

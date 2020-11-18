@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using LiteMediator;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,14 @@ namespace LiteNotifications.WebApi.Auth
     public sealed class LoginResponse
     {
         public string Token { get; set; }
+        public UserGroups Groups { get; set; }
+    }
+
+    public sealed class UserGroups : List<UserGroup> {}
+    public sealed class UserGroup
+    {
+        public int GroupId { get; set; }
+        public string GroupDisplayName { get; set; }
     }
     
     [Route("api/[controller]")]

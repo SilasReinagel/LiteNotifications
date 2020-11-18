@@ -11,9 +11,9 @@ namespace LiteNotifications.WebApi.UseCases
         private readonly string _publicUrl;
         private readonly IValue<Subscriptions> _subs;
         private readonly Dictionary<string, IChannel> _channels;
-        private readonly IValue<UserOutlets> _userOutlets;
+        private readonly IValue<GroupOutlets> _userOutlets;
 
-        public UglyPublishNotificationFirstDraft(string publicUrl, IValue<Subscriptions> subs, IValue<UserOutlets> userUserOutlets, Channels channels)
+        public UglyPublishNotificationFirstDraft(string publicUrl, IValue<Subscriptions> subs, IValue<GroupOutlets> userUserOutlets, Channels channels)
         {
             _publicUrl = publicUrl;
             _subs = subs;
@@ -24,7 +24,7 @@ namespace LiteNotifications.WebApi.UseCases
         public Task Send(Notification n)
         {
             var subs = _subs.Get().Where(x => x.Topic.Equals(n.Topic, StringComparison.InvariantCultureIgnoreCase))
-                .ToDictionary(x => x.UserId.ToWebSafeBase64(), x => x.OutletGroup, StringComparer.InvariantCultureIgnoreCase);
+                .ToDictionary(x => x.GroupId.ToWebSafeBase64(), x => x.OutletGroup, StringComparer.InvariantCultureIgnoreCase);
             var users = subs.Keys;
             
             var subscribedUsers = _userOutlets.Get().Where(x => users.Contains(x.Key, StringComparer.InvariantCultureIgnoreCase));
@@ -39,7 +39,7 @@ namespace LiteNotifications.WebApi.UseCases
             return Task.CompletedTask;
         }
 
-        private void Send(string userId, Notification n, UserOutletData o)
+        private void Send(string userId, Notification n, GroupOutletData o)
         {
             if (!_channels.ContainsKey(o.OutletType))
                 throw new KeyNotFoundException($"Unsupported Outlet Type: {o.OutletType}");
@@ -51,7 +51,7 @@ namespace LiteNotifications.WebApi.UseCases
             });
         }
 
-        private string GetUnsubscribeText(string userId, Notification n, UserOutletData o)
+        private string GetUnsubscribeText(string userId, Notification n, GroupOutletData o)
         {
             return
                 $"\r\n\r\n---------------------------\r\nTo Unsubscribe Click - {_publicUrl}/api/notifications/unsubscribeMe?userId={userId}&topic={n.Topic}&outletGroup={o.OutletGroup}";

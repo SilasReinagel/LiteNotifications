@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LiteNotifications.WebApi.Persistence
 {
-    public sealed class JsonStoreIo : Io
+    public sealed class JsonStoreIo : SimpleIo
     {
         private const string BaseUrl = "https://www.jsonstore.io/";
         private readonly HttpClient _client = new HttpClient();
