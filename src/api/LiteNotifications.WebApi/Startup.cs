@@ -39,17 +39,19 @@ namespace LiteNotifications.WebApi
             svc.AddSingleton<SlackPostMessage>();
             svc.AddSingleton<SlackGetChannel>();
             svc.AddSingleton<SlackGetUser>();
-            svc.AddSingleton<SlackChannelChannel>();
-            svc.AddSingleton<SlackUserChannel>();
+            svc.AddSingleton<SlackDestination>();
+            svc.AddSingleton<SlackUserDestination>();
+            svc.AddSingleton<DiscordTextChannelDestination>();
 
             svc.AddScoped<SimpleIo>(s => new JsonStoreIo());
             svc.AddScoped(s => new SubscriptionsPersistence(s.GetRequiredService<SimpleIo>(), "567db3f221ac7e95567e47413d4cec051e4fa031db09ca52d86f369ec4dd09f8"));
             svc.AddSingleton(s => new Channels
             {
                 //{"sms", new TwilioSmsChannel(new SmsClient())},
-                {"Email", new EmailChannel(new EmailClient(new EnvironmentVariablesConfig()))},
-                {"SlackChannel", s.GetRequiredService<SlackChannelChannel>()},
-                {"SlackUser", s.GetRequiredService<SlackUserChannel>()},
+                {"Email", new EmailDestination(new EmailClient(new EnvironmentVariablesConfig()))},
+                {"SlackChannel", s.GetRequiredService<SlackDestination>()},
+                {"SlackUser", s.GetRequiredService<SlackUserDestination>()},
+                {"DiscordChannel", s.GetRequiredService<DiscordTextChannelDestination>()}
             });
 //            svc.AddScoped(s => new UglyPublishNotificationFirstDraft("", s.GetRequiredService<SubscriptionsPersistence>(), // TODO: Configure public URL
 //                s.GetRequiredService<UserOutletsPersistence>(),

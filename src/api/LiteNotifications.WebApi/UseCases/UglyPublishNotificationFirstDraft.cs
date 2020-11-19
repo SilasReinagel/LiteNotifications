@@ -10,7 +10,7 @@ namespace LiteNotifications.WebApi.UseCases
     {
         private readonly string _publicUrl;
         private readonly IValue<Subscriptions> _subs;
-        private readonly Dictionary<string, IChannel> _channels;
+        private readonly Dictionary<string, Destination> _channels;
         private readonly IValue<GroupOutlets> _userOutlets;
 
         public UglyPublishNotificationFirstDraft(string publicUrl, IValue<Subscriptions> subs, IValue<GroupOutlets> userUserOutlets, Channels channels)

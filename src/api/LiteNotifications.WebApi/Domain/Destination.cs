@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 
 namespace LiteNotifications.WebApi.Domain
 {
-    public interface IChannel
+    public interface Destination
     {
         string Type { get; }
         Task Send(RoutedNotification n);
     }
     
-    public class Channels : Dictionary<string, IChannel>
+    public class Channels : Dictionary<string, Destination>
     {
         public Channels() : base(StringComparer.InvariantCultureIgnoreCase) { }
     }

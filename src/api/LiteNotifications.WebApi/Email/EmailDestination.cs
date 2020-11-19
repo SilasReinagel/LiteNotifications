@@ -4,12 +4,12 @@ using LiteNotifications.WebApi.Domain;
 
 namespace LiteNotifications.WebApi.Email
 {
-    public sealed class EmailChannel : IChannel
+    public sealed class EmailDestination : Destination
     {
         private readonly EmailClient _client;
         
         public string Type => "Email";
-        public EmailChannel(EmailClient client) => _client = client;
+        public EmailDestination(EmailClient client) => _client = client;
 
         public Task Send(RoutedNotification n)
         {

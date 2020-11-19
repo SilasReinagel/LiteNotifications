@@ -3,12 +3,12 @@ using LiteNotifications.WebApi.Domain;
 
 namespace LiteNotifications.WebApi.Infrastructure.Slack
 {
-    public class SlackChannelChannel : IChannel
+    public class SlackDestination : Destination
     {
         public string Type => "SlackChannel";
         SlackGetChannel _channels;
         SlackPostMessage _post;
-        public SlackChannelChannel(SlackPostMessage post, SlackGetChannel channels)
+        public SlackDestination(SlackPostMessage post, SlackGetChannel channels)
         {
             _post = post;
             _channels = channels;
